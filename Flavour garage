@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#FF6A00">
+  <title>Flavour Garage - Sip & Bite Point</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="https://i.postimg.cc/jWM2LnWM/Flavour-Garage-Logo.png">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;600;700&display=swap');
+    :root { --bg: #0A0A0A; --card: #151515; --neon: #FF6A00; --neon-glow: rgba(255, 106, 0, 0.4); --text: #E5E5E5; --muted: #888; --border: #2A2A2A; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); background-image: linear-gradient(rgba(10,10,10,0.9), rgba(10,10,10,0.9)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23111111"/><path d="M0 0L100 100M100 0L0 100" stroke="%23222222" stroke-width="0.5"/></svg>'); }
+  .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+    header { text-align: center; padding: 30px 20px; border-bottom: 2px solid var(--neon); box-shadow: 0 4px 20px var(--neon-glow); margin-bottom: 30px; }
+  .logo { max-width: 180px; margin-bottom: 10px; filter: drop-shadow(0 0 10px var(--neon-glow)); }
+    h1 { font-family: 'Orbitron', sans-serif; font-weight: 900; color: var(--neon); text-shadow: 0 0 15px var(--neon-glow); font-size: 2.2rem; letter-spacing: 2px; }
+  .tagline { color: var(--muted); font-size: 0.9rem; margin-top: 5px; }
+  .section-title { font-family: 'Orbitron', sans-serif; color: var(--neon); font-size: 1.5rem; margin: 40px 0 20px 0; padding-left: 15px; border-left: 4px solid var(--neon); text-shadow: 0 0 10px var(--neon-glow); }
+  .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-bottom: 30px; }
+  .item-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; transition: all 0.3s; }
+  .item-card:hover { border-color: var(--neon); box-shadow: 0 0 20px var(--neon-glow); transform: translateY(-3px); }
+  .item-name { font-weight: 700; font-size: 1.1rem; margin-bottom: 8px; }
+  .item-price { color: var(--neon); font-weight: 600; font-size: 1.2rem; margin-bottom: 15px; }
+  .best-seller { font-size: 0.7rem; background: var(--neon); color: #000; padding: 2px 8px; border-radius: 4px; margin-left: 8px; }
+  .size-select { width: 100%; background: #000; border: 1px solid var(--border); color: var(--text); padding: 8px; border-radius: 6px; margin-bottom: 12px; }
+  .add-btn { width: 100%; background: var(--neon); color: #000; border: none; padding: 10px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+  .add-btn:hover { box-shadow: 0 0 15px var(--neon-glow); }
+  .cart { position: sticky; top: 20px; background: var(--card); border: 2px solid var(--neon); border-radius: 12px; padding: 25px; box-shadow: 0 0 30px var(--neon-glow); }
+  .cart-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .cart-total { margin-top: 20px; padding-top: 15px; border-top: 2px solid var(--neon); font-size: 1.3rem; font-weight: 700; }
+  .form-group { margin-bottom: 15px; }
+  .form-group label { display: block; margin-bottom: 5px; color: var(--muted); font-size: 0.9rem; }
+  .form-group input,.form-group select { width: 100%; background: #000; border: 1px solid var(--border); color: var(--text); padding: 10px; border-radius: 6px; }
+  .order-btn { width: 100%; background: #25D366; color: #000; border: none; padding: 15px; border-radius: 8px; font-weight: 900; font-size: 1.1rem; cursor: pointer; margin-top: 15px; }
+  .main-grid { display: grid; grid-template-columns: 1fr 380px; gap: 30px; align-items: start; }
+    @media (max-width: 900px) {.main-grid { grid-template-columns: 1fr; }.cart { position: relative; top: 0; } }
+  .footer { text-align: center; margin-top: 50px; padding: 20px; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.9rem; }
+  .payment-options { display: flex; gap: 10px; margin-top: 8px; }
+  .payment-options label { flex: 1; background: #000; border: 1px solid var(--border); padding: 10px; border-radius: 6px; text-align: center; cursor: pointer; font-size: 0.85rem; }
+  .payment-options input:checked + label { border-color: var(--neon); background: rgba(255, 106, 0, 0.1); }
+  .payment-options input { display: none; }
+    #installBtn { position: fixed; bottom: 20px; right: 20px; background: var(--neon); color: #000; border: none; padding: 12px 20px; border-radius: 50px; font-weight: 700; box-shadow: 0 0 20px var(--neon-glow); cursor: pointer; display: none; z-index: 999; }
+  </style>
+</head>
+<body>
+  <button id="installBtn">📱 Install App</button>
+  <div class="container">
+    <header>
+      <img src="https://i.postimg.cc/jWM2LnWM/Flavour-Garage-Logo.png" alt="Flavour Garage Logo" class="logo">
+      <h1>FLAVOUR GARAGE</h1>
+      <p class="tagline">BEST ZINGER IN TOWN 🔥 | SIP & BITE POINT</p>
+    </header>
+    <div class="main-grid">
+      <div class="menu-section">
+        <h2 class="section-title">🍔 BURGERS</h2>
+        <div class="menu-grid" id="burgers"></div>
+        <h2 class="section-title">🍟 FRIES</h2>
+        <div class="menu-grid" id="fries"></div>
+        <h2 class="section-title">🌯 SHAWARMA</h2>
+        <div class="menu-grid" id="shawarma"></div>
+        <h2 class="section-title">🔥 DEALS</h2>
+        <div class="menu-grid" id="deals"></div>
+        <h2 class="section-title">🥤 DRINKS & ADD-ONS</h2>
+        <div class="menu-grid" id="drinks"></div>
+      </div>
+      <div class="cart">
+        <h2 style="font-family:'Orbitron';color:var(--neon);margin-bottom:20px;">YOUR GARAGE CART</h2>
+        <div id="cartItems"><p style="color:var(--muted);">Cart empty hai</p></div>
+        <div class="cart-total">
+          <div style="display:flex;justify-content:space-between;"><span>Subtotal:</span><span id="subtotal">Rs 0</span></div>
+          <div id="deliveryRow" style="display:flex;justify-content:space-between;font-size:1rem;color:var(--muted);"><span>Delivery Charges:</span><span id="deliveryFee">Rs 100</span></div>
+          <div style="display:flex;justify-content:space-between;margin-top:10px;font-size:1.4rem;"><span>TOTAL:</span><span id="total" style="color:var(--neon);">Rs 0</span></div>
+        </div>
+        <div style="margin-top:25px;">
+          <div class="form-group"><label>Customer Name *</label><input type="text" id="custName" placeholder="Apna naam"></div>
+          <div class="form-group"><label>Contact Number *</label><input type="tel" id="custPhone" placeholder="03XX-XXXXXXX"></div>
+          <div class="form-group"><label>Order Type *</label><select id="orderType" onchange="toggleDeliveryFields()"><option value="Delivery">Delivery</option><option value="Pickup">Pickup</option><option value="Dine-In">Dine-In</option></select></div>
+          <div class="form-group" id="addressGroup"><label>Complete Address *</label><input type="text" id="custAddress" placeholder="House #, Street, Area, Islamabad/Rawalpindi"></div>
+          <div class="form-group" id="tableGroup" style="display:none;"><label>Table Number *</label><input type="text" id="tableNo" placeholder="Table #5"></div>
+          <div class="form-group"><label>Delivery/Dine-In Time</label><input type="text" id="custTime" placeholder="ASAP ya 7:30 PM"></div>
+          <div class="form-group"><label>Payment Method *</label><div class="payment-options"><input type="radio" name="payment" id="cod" value="Cash on Delivery" checked><label for="cod">COD</label><input type="radio" name="payment" id="jazzcash" value="JazzCash"><label for="jazzcash">JazzCash</label><input type="radio" name="payment" id="easypaisa" value="EasyPaisa"><label for="easypaisa">EasyPaisa</label></div></div>
+          <button class="order-btn" onclick="placeOrder()">ORDER ON WHATSAPP</button>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <p>📞 0327-6005852 | Delivery Charges Rs 100 | Timings: 12PM - 2AM</p>
+      <p>📍 Islamabad & Rawalpindi | © 2026 Flavour Garage. All rights reserved.</p>
+    </div>
+  <script>
+    const WA_NUMBER = "923276005852";
+    const DELIVERY_FEE = 100;
+    const menu = { burgers: [{id: 1, name: "Zinger Burger", price: 399, badge: "BEST SELLER"}, {id: 2, name: "Chicken Burger", price: 299}, {id: 3, name: "Double Patty Burger", price: 549}, {id: 4, name: "Chapli Kabab Burger", price: 349}], fries: [{id: 5, name: "Regular Fries", sizes: {Small: 120, Medium: 180, Large: 250}}, {id: 6, name: "Masala Fries", sizes: {Small: 150, Medium: 220, Large: 300}}, {id: 7, name: "Loaded Fries", sizes: {Small: 280, Medium: 350, Large: 450}}, {id: 8, name: "Matka Fries", sizes: {Small: 300, Medium: 400, Large: 500}, badge: "SPECIAL"}], shawarma: [{id: 9, name: "Chicken Shawarma", sizes: {Small: 220, Large: 230}}, {id: 10, name: "Zinger Shawarma", price: 280}, {id: 11, name: "Arabic Shawarma", sizes: {Small: 380, Large: 499}}], deals: [{id: 12, name: "Student Deal", desc: "Chicken Burger + Small Fries + Drink", price: 399}, {id: 13, name: "Deal 1", desc: "Zinger Burger + Masala Fries + Drink", price: 649}, {id: 14, name: "Deal 2", desc: "Double Patty + Loaded Fries + Drink", price: 899}, {id: 15, name: "Midnight Deal 11PM-2AM", desc: "2 Chicken Shawarma + Fries + 2 Drinks", price: 699}], drinks: [{id: 16, name: "Cold Drink 500ml", price: 100}, {id: 17, name: "Mineral Water 500ml", price: 50}, {id: 18, name: "Doodh Patti Chai", price: 80}, {id: 19, name: "Extra Cheese / Sauce", price: 50}] };
+    let cart = [];
+    function toggleDeliveryFields() { const type = document.getElementById('orderType').value; const addressGroup = document.getElementById('addressGroup'); const tableGroup = document.getElementById('tableGroup'); const deliveryRow = document.getElementById('deliveryRow'); if (type === 'Delivery') { addressGroup.style.display = 'block'; tableGroup.style.display = 'none'; deliveryRow.style.display = 'flex'; } else if (type === 'Dine-In') { addressGroup.style.display = 'none'; tableGroup.style.display = 'block'; deliveryRow.style.display = 'none'; } else { addressGroup.style.display = 'none'; tableGroup.style.display = 'none'; deliveryRow.style.display = 'none'; } updateCart(); }
+    function renderMenu() { for (let cat in menu) { const container = document.getElementById(cat); menu[cat].forEach(item => { let priceHtml = item.price? `Rs ${item.price}` : ''; let sizeSelect = ''; if (item.sizes) { priceHtml = `From Rs ${Math.min(...Object.values(item.sizes))}`; sizeSelect = `<select class="size-select" id="size-${item.id}">${Object.entries(item.sizes).map(([size, price]) => `<option value="${size}">${size} - Rs ${price}</option>`).join('')}</select>`; } container.innerHTML += `<div class="item-card"><div class="item-name">${item.name} ${item.badge? `<span class="best-seller">${item.badge}</span>` : ''}</div>${item.desc? `<div style="color:var(--muted);font-size:0.85rem;margin-bottom:8px;">${item.desc}</div>` : ''}<div class="item-price">${priceHtml}</div>${sizeSelect}<button class="add-btn" onclick="addToCart(${item.id}, '${cat}')">ADD TO CART</button></div>`; }); } }
+    function addToCart(id, cat) { const item = menu[cat].find(i => i.id === id); let name = item.name; let price = item.price; if (item.sizes) { const sizeEl = document.getElementById(`size-${id}`); const size = sizeEl.value; price = item.sizes[size]; name = `${item.name} (${size})`; } const existing = cart.find(i => i.name === name); if (existing) { existing.qty++; } else { cart.push({name, price, qty: 1}); } updateCart(); }
+    function updateCart() { const cartEl = document.getElementById('cartItems'); if (cart.length === 0) { cartEl.innerHTML = '<p style="color:var(--muted);">Cart empty hai</p>'; } else { cartEl.innerHTML = cart.map((item, idx) => `<div class="cart-item"><div><div style="font-weight:600;">${item.name}</div><div style="font-size:0.85rem;color:var(--muted);">Rs ${item.price} x ${item.qty}</div></div><div><button onclick="changeQty(${idx}, -1)" style="background:none;border:1px solid var(--border);color:var(--text);width:25px;height:25px;border-radius:4px;cursor:pointer;">-</button><button onclick="changeQty(${idx}, 1)" style="background:none;border:1px solid var(--border);color:var(--text);width:25px;height:25px;border-radius:4px;cursor:pointer;margin-left:5px;">+</button></div></div>`).join(''); } const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0); const orderType = document.getElementById('orderType').value; const currentDeliveryFee = orderType === 'Delivery'? DELIVERY_FEE : 0; document.getElementById('subtotal').textContent = `Rs ${subtotal}`; document.getElementById('deliveryFee').textContent = `Rs ${currentDeliveryFee}`; document.getElementById('total').textContent = `Rs ${subtotal + currentDeliveryFee}`; }
+    function changeQty(idx, delta) { cart[idx].qty += delta; if (cart[idx].qty <= 0) cart.splice(idx, 1); updateCart(); }
+    function placeOrder() { if (cart.length === 0) return alert('Cart empty hai! Pehle kuch add karo.'); const name = document.getElementById('custName').value; const phone = document.getElementById('custPhone').value; const type = document.getElementById('orderType').value; const time = document.getElementById('custTime').value || 'ASAP'; const payment = document.querySelector('input[name="payment"]:checked').value; let location = ''; if (type === 'Delivery') { location = document.getElementById('custAddress').value; if (!location) return alert('Delivery ke liye address zaroori hai'); } else if (type === 'Dine-In') { location = `Table: ${document.getElementById('tableNo').value}`; if (!document.getElementById('tableNo').value) return alert('Dine-In ke liye table number zaroori hai'); } else { location = 'Pickup from outlet'; } if (!name ||!phone) return alert('Name aur Phone zaroori hai'); const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0); const currentDeliveryFee = type === 'Delivery'? DELIVERY_FEE : 0; const total = subtotal + currentDeliveryFee; let msg = `*FLAVOUR GARAGE NEW ORDER* 🔥\n\n`; msg += `*Customer:* ${name}\n*Contact:* ${phone}\n*Order Type:* ${type}\n*Location:* ${location}\n*Time:* ${time}\n*Payment:* ${payment}\n\n`; msg += `*ORDER DETAILS:*\n`; cart.forEach(item => { msg += `• ${item.name} x ${item.qty} = Rs ${item.price * item.qty}\n`; }); msg += `\n*Subtotal:* Rs ${subtotal}\n`; if (currentDeliveryFee > 0) msg += `*Delivery Charges:* Rs ${currentDeliveryFee}\n`; msg += `*TOTAL BILL: Rs ${total}*`; window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank'); }
+    renderMenu(); toggleDeliveryFields();
+    let deferredPrompt; const installBtn = document.getElementById('installBtn');
+    window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; installBtn.style.display = 'block'; });
+    installBtn.addEventListener('click', async () => { if (deferredPrompt) { deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt = null; installBtn.style.display = 'none'; } });
+    if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
+  </script>
+</body>
+</html>
